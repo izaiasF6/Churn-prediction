@@ -12,9 +12,9 @@ palette = ['#002D62', '#FDBB30', "#086432", "#4E0068", "#7F092A"]
 def plot_feature_rate(dataframe: DataFrame, features: list[str]) -> figure:
     n_cols = min(3, len(features))
     n_rows = ceil(len(features) / n_cols)
+    sns.set_style('darkgrid')
     fig, axes = plt.subplots(n_rows, n_cols, figsize=(6 * n_cols, 5 * n_rows))
     axes = np.atleast_1d(axes)
-    sns.set_style('dark')
 
     for i, feature in enumerate(features):
         row = i // n_cols
@@ -24,7 +24,6 @@ def plot_feature_rate(dataframe: DataFrame, features: list[str]) -> figure:
         sns.countplot(data=dataframe, x=feature, ax=ax, palette=palette, hue=feature, legend=False)
         ax.yaxis.set_visible(False)
         ax.set_xlabel('')
-        ax.grid(False)
         ax.set_title(f'{feature} Rate')
         
         labels = [tick.get_text() for tick in ax.get_xticklabels()]
@@ -85,7 +84,7 @@ def plot_feature_target_rate(dataframe: DataFrame, features: list[str], target=N
     n_rows = ceil(len(features) / n_cols)
     fig, axes = plt.subplots(n_rows, n_cols, figsize=(6 * n_cols, 5 * n_rows))
     axes = np.atleast_1d(axes)
-    sns.set_style('dark')
+    sns.set_style('darkgrid')
 
     for i, feature in enumerate(features):
         row = i // n_cols
@@ -95,7 +94,6 @@ def plot_feature_target_rate(dataframe: DataFrame, features: list[str], target=N
         sns.barplot(data=dataframe, x=feature, y=target , ax=ax, color="#002D62", ci=None)
         ax.yaxis.set_visible(False)
         ax.set_xlabel('')
-        ax.grid(False)
         ax.set_title(f'Taxa de Churn por {feature} (%)')
 
         for p in ax.patches:
